@@ -29,7 +29,7 @@ public final class ObservedBehaviorDemo {
 		System.out.println("Actual exception type: " + snapshot.exceptionType());
 		System.out.println("Actual exception message: " + snapshot.exceptionMessage());
 		System.out.println("Stack trace contains TimeoutException: " + snapshot.stackTrace().contains("TimeoutException"));
-		System.out.println("Stack trace contains exit code 127: " + snapshot.stackTrace().contains("127"));
+		System.out.println("Error contains child exit code 127: " + snapshot.containsChildExitCode127());
 	}
 
 	public static FailureSnapshot runOnce() {
@@ -77,7 +77,12 @@ public final class ObservedBehaviorDemo {
 
 	public record FailureSnapshot(String command, long elapsedMillis, String exceptionType, String exceptionMessage,
 			String stackTrace) {
+
+		public boolean containsChildExitCode127() {
+			return this.stackTrace.contains("exit code 127") || this.stackTrace.contains("code 127")
+					|| this.stackTrace.contains("exited with 127");
+		}
+
 	}
 
 }
-

@@ -16,7 +16,7 @@ class StdioProcessExitReproducerTest {
 				() -> assertFalse(snapshot.stackTrace().contains("TimeoutException"),
 						"Expected the SDK to fail because the child process exited, but it failed by timeout.\n"
 								+ describe(snapshot)),
-				() -> assertTrue(snapshot.stackTrace().contains("127"),
+				() -> assertTrue(snapshot.containsChildExitCode127(),
 						"Expected the SDK error to include the child process exit code 127.\n" + describe(snapshot)));
 	}
 
@@ -31,4 +31,3 @@ class StdioProcessExitReproducerTest {
 	}
 
 }
-

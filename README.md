@@ -56,7 +56,7 @@ Actual elapsed millis: 826
 Actual exception type: java.lang.RuntimeException
 Actual exception message: Client failed to initialize by explicit API call
 Stack trace contains TimeoutException: true
-Stack trace contains exit code 127: false
+Error contains child exit code 127: false
 ```
 
 The SDK logs the child process stderr and eventually observes the exit code
