@@ -10,6 +10,10 @@ to the caller through the `initialize()` failure.
 This is different from a `ProcessBuilder.start()` failure: the process is
 created successfully, then exits shortly after startup.
 
+This also seems distinct from #937, which is about bounded termination during
+shutdown. The failure here happens during initialization, before the client gets
+an initialize response.
+
 This also appears to be the lower-level cause behind
 spring-projects/spring-ai#5982, where Spring AI waits for its MCP client
 initialization timeout instead of reporting the stdio process exit.
@@ -81,3 +85,5 @@ completes after `ProcessBuilder.start()` succeeds. If the process exits shortly
 afterward, the pending initialize request remains pending until the request
 timeout. The exit code is only observed later on close, not propagated to the
 pending initialization request.
+
+If this behavior and scope look valid, I would be happy to work on a focused PR.
